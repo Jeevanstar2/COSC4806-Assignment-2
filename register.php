@@ -1,5 +1,5 @@
 <?php
-require 'db.php';
+require 'db.php'; 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
     $username = trim($_POST['username']);
@@ -12,6 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     if (strlen($password) < 8) 
     {
         die("Password must be at least 8 characters long.");
+    }
+    if (!preg_match('/[A-Z]/', $password)) 
+    {
+        die("Password must contain at least one uppercase letter.");
+    }
+    if (!preg_match('/[0-9]/', $password)) 
+    {
+        die("Password must contain at least one number.");
     }
     if ($password !== $confirm_password) 
     {
