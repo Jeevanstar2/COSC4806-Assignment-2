@@ -32,8 +32,6 @@ if (!isset($_SESSION['login_attempts']))
     <?php endif; ?>
     <input type="submit" value="Login">
 </form>
-
 <p>Don't have an account? <a href="register.php">Create a new account</a></p>
-
 </body>
 </html>
