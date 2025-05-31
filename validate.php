@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'db.php'; // Connect to your MariaDB database
+require 'db.php'; // Connect to MariaDB
 
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
@@ -10,11 +10,11 @@ $username = trim($_POST['username'] ?? '');
 $password = trim($_POST['password'] ?? '');
 
 // Check if user exists in the database
-$stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+$stmt = $pdo->prepare("SELECT * FROM COSC4806001_Assignment2_Users WHERE Username = ?");
 $stmt->execute([$username]);
 $user = $stmt->fetch();
 
-if ($user && password_verify($password, $user['password_hash'])) {
+if ($user && password_verify($password, $user['Password'])) {
     // Login successful
     $_SESSION['authenticated'] = true;
     $_SESSION['username'] = $username;
