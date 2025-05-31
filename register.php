@@ -1,12 +1,21 @@
 <?php
-require 'db.php'; 
+require 'db.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
+    $confirm_password = trim($_POST['confirm_password']);
+    if (empty($username) || empty($password) || empty($confirm_password)) 
+    {
+        die("All fields are required.");
+    }
     if (strlen($password) < 8) 
     {
         die("Password must be at least 8 characters long.");
+    }
+    if ($password !== $confirm_password) 
+    {
+        die("Passwords do not match. Please try again.");
     }
     $stmt = $pdo->prepare("SELECT * FROM COSC4806001_Assignment2_Users WHERE Username = ?");
     $stmt->execute([$username]);
@@ -30,5 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <form method="POST">
     Username: <input type="text" name="username" required><br><br>
     Password: <input type="password" name="password" required><br><br>
+    Confirm Password: <input type="password" name="confirm_password" required><br><br>
     <button type="submit">Register</button>
 </form>
